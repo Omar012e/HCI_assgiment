@@ -1,0 +1,45 @@
+<div class="container">
+    <form (ngSubmit)="onSubmit(taskForm)" #taskForm="ngForm">
+        <div class="mb-3">
+          <label for="taskTitle" class="form-label">Task title</label>
+          <input required type="text" [(ngModel)]="taskTitle" class="form-control" id="taskTitle" ngModel name="taskTitle">
+        </div>
+        <div class="mb-3">
+          <label for="taskDescribtion" class="form-label">Task Describtion</label>
+          <input type="text" [(ngModel)]="taskDescribtion" class="form-control" id="taskDescribtion" ngModel name="taskDescribtion">
+        </div>
+        <div class="mb-3">
+            <label for="taskDate" class="form-label">Task Date</label>
+            <input type="date" [(ngModel)]="taskDate" class="form-control" id="taskDate" ngModel name="taskDate">
+        </div>
+        <button type="submit" 
+        [disabled]="taskForm.invalid"
+        *ngIf="showEditButton()" class="btn btn-primary">ADD</button>
+        <button type="button" *ngIf="!showEditButton()" class="btn btn-primary" (click)="onModify()">Edit</button>
+      </form>
+
+      <hr>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Describtion</th>
+            <th scope="col">Date</th>
+            <th scope="col">Complete</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of taskArray; index as i">
+            <td>{{task.taskTitle}}</td>
+            <td>{{task.taskDescribtion}}</td>
+            <td>{{task.taskDate}}</td>
+            <td><input type="checkbox" id="checkbox"></td>
+            <td><button class="btn btn-primary btn-sm"(click)="onEdit(i,taskForm)">Edit</button></td>
+            <td><button type="button" class="btn btn-danger btn-sm" (click)="onDelete(i)">Delete</button></td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
